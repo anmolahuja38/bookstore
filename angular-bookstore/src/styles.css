@@ -1,3 +1,7 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+
 @font-face{
     font-family: 'Castoro';
     src: url(/assets/fonts/Castoro/Castoro-Regular.ttf) format("truetype");
@@ -6,3 +10,8 @@
 h1{
     font-family: 'Castoro';
 }
+
+body {
+    padding-top: 56px;
+  }
+
