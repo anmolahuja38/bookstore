@@ -1,0 +1,8 @@
+@font-face{
+    font-family: 'Castoro';
+    src: url(/assets/fonts/Castoro/Castoro-Regular.ttf) format("truetype");
+}
+
+h1{
+    font-family: 'Castoro';
+}
