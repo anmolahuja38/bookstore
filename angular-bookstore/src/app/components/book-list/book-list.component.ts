@@ -22,18 +22,39 @@ export class BookListComponent implements OnInit {
 
   books: Book[] = [];
   currentCategoryId: number;
+  searchMode: boolean;
 
   listBooks() {
+    this.searchMode = this._activatedRoute.snapshot.paramMap.has('keyword');
+    if (this.searchMode) {
+      //do the search work
+      this.handleSearchBooks();
+    } else {
+      //handle the list book method
+      this.handleListBook();
+    }
+  }
+
+  handleSearchBooks() {
+    const keyword: string = this._activatedRoute.snapshot.paramMap.get('keyword');
+    this._bookService.searchBooksByKeyword(keyword).subscribe(
+      data => {
+        this.books = data;
+      }
+    )
+  }
+
+  handleListBook() {
     const hasCategoryid: boolean = this._activatedRoute.snapshot.paramMap.has('id');
     if (hasCategoryid) {
-      this.currentCategoryId=+this._activatedRoute.snapshot.paramMap.get('id');
-    }else{
-      this.currentCategoryId=1;
+      this.currentCategoryId = +this._activatedRoute.snapshot.paramMap.get('id');
+    } else {
+      this.currentCategoryId = 1;
     }
     this._bookService.getBooksByCategory(this.currentCategoryId).subscribe(
       data => {
         this.books = data;
       }
-    )
+    );
   }
 }

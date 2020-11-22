@@ -11,4 +11,6 @@ import com.anmolahuja.bookstore.entity.Book;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
 	public List<Book> findBooksByCategoryId(Long id);
+
+	public List<Book> findByNameContaining(String name);
 }

@@ -14,21 +14,28 @@ export class BookService {
   constructor(private httpClient: HttpClient) { }
 
   getBooks(): Observable<Book[]> {
-    const url=`${this.baseUrl}/books`
+    const url = `${this.baseUrl}/books`
     return this.httpClient.get<GetResponseBooks>(this.baseUrl).pipe(
       map(response => response.body)
     );
   }
 
-  getCategory(): Observable<BookCategory[]>{
-    const url=`${this.baseUrl}/category`;
+  getCategory(): Observable<BookCategory[]> {
+    const url = `${this.baseUrl}/category`;
     return this.httpClient.get<getResponseCategory>(url).pipe(
       map(response => response.body)
     );
   }
 
   getBooksByCategory(categoryId: number) {
-    const url=`${this.baseUrl}/books/category?id=${categoryId}`;
+    const url = `${this.baseUrl}/books/category?id=${categoryId}`;
+    return this.httpClient.get<GetResponseBooks>(url).pipe(
+      map(response => response.body)
+    );
+  }
+
+  searchBooksByKeyword(keyword: string): Observable<Book[]> {
+    const url = `${this.baseUrl}/books/search?name=${keyword}`;
     console.log(url);
     return this.httpClient.get<GetResponseBooks>(url).pipe(
       map(response => response.body)
@@ -40,6 +47,6 @@ interface GetResponseBooks {
   body: Book[];
 }
 
-interface getResponseCategory{
-  body : BookCategory[];
+interface getResponseCategory {
+  body: BookCategory[];
 }

@@ -27,20 +27,25 @@ public class BookController {
 				bookService.getAllBooks(), true, false);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
+
 	@GetMapping(path = "/books/{id}")
-	public ResponseEntity<CustomApiSuccessResponse> getBookById(@PathVariable Long id)
-	{
+	public ResponseEntity<CustomApiSuccessResponse> getBookById(@PathVariable Long id) {
 		CustomApiSuccessResponse response = new CustomApiSuccessResponse("getBookById", "OK", 200,
 				bookService.getBookById(id), true, false);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
+
 	@GetMapping(path = "/books/category")
-	public ResponseEntity<CustomApiSuccessResponse> findBooksByCategoryId(@RequestParam("id") Long id)
-	{
+	public ResponseEntity<CustomApiSuccessResponse> findBooksByCategoryId(@RequestParam("id") Long id) {
 		CustomApiSuccessResponse response = new CustomApiSuccessResponse("findByCategoryId", "OK", 200,
 				bookService.findBooksByCategoryId(id), true, false);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
+	@GetMapping(path = "/books/search")
+	public ResponseEntity<CustomApiSuccessResponse> findByNameContaining(@RequestParam("name") String name) {
+		CustomApiSuccessResponse response = new CustomApiSuccessResponse("findByNameContaining", "OK", 200,
+				bookService.findByNameContaining(name), true, false);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 }

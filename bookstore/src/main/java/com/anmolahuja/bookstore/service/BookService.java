@@ -14,4 +14,6 @@ public interface BookService {
 	public Book getBookById(Long id);
 	
 	public List<Book> findBooksByCategoryId(Long id);
+	
+	public List<Book> findByNameContaining(String name);
 }
