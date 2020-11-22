@@ -17,6 +17,14 @@ export class BookService {
       map(response => response.body)
     );
   }
+
+  getBooksByCategory(categoryId: number) {
+    const url=`${this.baseUrl}/category?id=${categoryId}`;
+    console.log(url);
+    return this.httpClient.get<GetResponseBooks>(url).pipe(
+      map(response => response.body)
+    );
+  }
 }
 
 interface GetResponseBooks {

@@ -24,4 +24,8 @@ public class BookServiceImpl implements BookService{
 		return bookRepository.findById(id).get();
 	}
 
+	public List<Book> findBooksByCategoryId(Long id) {
+		return new ArrayList<Book>(bookRepository.findBooksByCategoryId(id));
+	}
+
 }

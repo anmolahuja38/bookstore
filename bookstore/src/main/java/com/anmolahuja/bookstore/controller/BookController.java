@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anmolahuja.bookstore.exception.handler.CustomApiSuccessResponse;
@@ -32,6 +33,14 @@ public class BookController {
 	{
 		CustomApiSuccessResponse response = new CustomApiSuccessResponse("getBookById", "OK", 200,
 				bookService.getBookById(id), true, false);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
+	@GetMapping(path = "/books/category")
+	public ResponseEntity<CustomApiSuccessResponse> findBooksByCategoryId(@RequestParam("id") Long id)
+	{
+		CustomApiSuccessResponse response = new CustomApiSuccessResponse("findByCategoryId", "OK", 200,
+				bookService.findBooksByCategoryId(id), true, false);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 }

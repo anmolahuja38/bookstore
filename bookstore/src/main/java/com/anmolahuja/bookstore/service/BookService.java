@@ -12,4 +12,6 @@ public interface BookService {
 	public List<Book> getAllBooks();
 	
 	public Book getBookById(Long id);
+	
+	public List<Book> findBooksByCategoryId(Long id);
 }
