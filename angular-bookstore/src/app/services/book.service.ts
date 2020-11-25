@@ -41,10 +41,21 @@ export class BookService {
       map(response => response.body)
     );
   }
+
+  getBookDetails(bookId: number) {
+    const url = `${this.baseUrl}/books/${bookId}`;
+    return this.httpClient.get<GetResponseBook>(url).pipe(
+      map(response => response.body)
+    );
+  }
 }
 
 interface GetResponseBooks {
   body: Book[];
+}
+
+interface GetResponseBook {
+  body : Book;
 }
 
 interface getResponseCategory {
