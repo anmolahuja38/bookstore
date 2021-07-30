@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Component, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { JwPaginationModule } from 'jw-angular-pagination';
 
 import { AppComponent } from './app.component';
 import { BookListComponent } from './components/book-list/book-list.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    JwPaginationModule,
     RouterModule.forRoot(routes)
   ],
   providers: [

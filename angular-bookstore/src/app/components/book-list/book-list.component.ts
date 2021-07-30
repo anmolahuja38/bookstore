@@ -6,23 +6,25 @@ import { BookService } from 'src/app/services/book.service';
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.css']
+  styleUrls: ['./book-list.component.css'],
 })
 export class BookListComponent implements OnInit {
-
-  constructor(private _bookService: BookService,
-    private _activatedRoute: ActivatedRoute) { }
+  constructor(
+    private _bookService: BookService,
+    private _activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-
     this._activatedRoute.paramMap.subscribe(() => {
       this.listBooks();
-    })
+    });
   }
 
   books: Book[] = [];
   currentCategoryId: number;
   searchMode: boolean;
+  pageOfItems: Array<Book>;
+  pageSize: number = 6;
 
   listBooks() {
     this.searchMode = this._activatedRoute.snapshot.paramMap.has('keyword');
@@ -36,25 +38,35 @@ export class BookListComponent implements OnInit {
   }
 
   handleSearchBooks() {
-    const keyword: string = this._activatedRoute.snapshot.paramMap.get('keyword');
-    this._bookService.searchBooksByKeyword(keyword).subscribe(
-      data => {
-        this.books = data;
-      }
-    )
+    const keyword: string =
+      this._activatedRoute.snapshot.paramMap.get('keyword');
+    this._bookService.searchBooksByKeyword(keyword).subscribe((data) => {
+      this.books = data;
+    });
+  }
+
+  onPageChange(pageOfItems: Array<Book>) {
+    this.pageOfItems = pageOfItems;
+  }
+
+  updatePageSize(pageSize : number){
+    this.pageSize=pageSize;
+    this.listBooks();
   }
 
   handleListBook() {
-    const hasCategoryid: boolean = this._activatedRoute.snapshot.paramMap.has('id');
+    const hasCategoryid: boolean =
+      this._activatedRoute.snapshot.paramMap.has('id');
     if (hasCategoryid) {
-      this.currentCategoryId = +this._activatedRoute.snapshot.paramMap.get('id');
+      this.currentCategoryId =
+        +this._activatedRoute.snapshot.paramMap.get('id');
     } else {
       this.currentCategoryId = 1;
     }
-    this._bookService.getBooksByCategory(this.currentCategoryId).subscribe(
-      data => {
+    this._bookService
+      .getBooksByCategory(this.currentCategoryId)
+      .subscribe((data) => {
         this.books = data;
-      }
-    );
+      });
   }
 }
