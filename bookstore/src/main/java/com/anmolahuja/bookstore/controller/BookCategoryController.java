@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anmolahuja.bookstore.exception.handler.CustomApiSuccessResponse;
@@ -20,6 +21,7 @@ public class BookCategoryController {
 	private BookCategoryService bookCategoryService;
 
 	@GetMapping(path = "/category")
+	@ResponseBody
 	public ResponseEntity<CustomApiSuccessResponse> getAllCategory() {
 		CustomApiSuccessResponse response = new CustomApiSuccessResponse("getAllCategory", "OK", 200,
 				bookCategoryService.getAllCategory(), true, false);

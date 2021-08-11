@@ -23,8 +23,9 @@ export class BookListComponent implements OnInit {
   books: Book[] = [];
   currentCategoryId: number;
   searchMode: boolean;
-  pageOfItems: Array<Book>;
-  pageSize: number = 6;
+  pageSize: number = 5;
+  currentPage: number = 1;
+  totalRecords : number = 0;
 
   listBooks() {
     this.searchMode = this._activatedRoute.snapshot.paramMap.has('keyword');
@@ -40,18 +41,25 @@ export class BookListComponent implements OnInit {
   handleSearchBooks() {
     const keyword: string =
       this._activatedRoute.snapshot.paramMap.get('keyword');
-    this._bookService.searchBooksByKeyword(keyword).subscribe((data) => {
-      this.books = data;
-    });
+    this._bookService
+      .searchBooksByKeyword(keyword, this.currentPage - 1, this.pageSize)
+      .subscribe(this.processPaginate());
   }
 
-  onPageChange(pageOfItems: Array<Book>) {
-    this.pageOfItems = pageOfItems;
-  }
-
-  updatePageSize(pageSize : number){
-    this.pageSize=pageSize;
+  updatePageSize(pageSize: number) {
+    this.pageSize = pageSize;
+    this.currentPage=1;
     this.listBooks();
+  }
+
+  processPaginate(){
+    return data => {
+      this.books=data.books;
+      console.log(data);
+      this.currentPage=data.number+1;
+      this.totalRecords=data.totalElements;
+      this.pageSize=data.pageSize;
+    }
   }
 
   handleListBook() {
@@ -64,9 +72,7 @@ export class BookListComponent implements OnInit {
       this.currentCategoryId = 1;
     }
     this._bookService
-      .getBooksByCategory(this.currentCategoryId)
-      .subscribe((data) => {
-        this.books = data;
-      });
+      .getBooksByCategory(this.currentCategoryId, this.currentPage-1, this.pageSize)
+      .subscribe( this.processPaginate());
   }
 }

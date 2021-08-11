@@ -4,16 +4,17 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.anmolahuja.bookstore.dto.BooksPaginationDto;
 import com.anmolahuja.bookstore.entity.Book;
 
 @Service
 public interface BookService {
 
-	public List<Book> getAllBooks();
+	public BooksPaginationDto getAllBooks(int page,int size);
 	
 	public Book getBookById(Long id);
 	
-	public List<Book> findBooksByCategoryId(Long id);
+	public BooksPaginationDto findBooksByCategoryId(Long id,int page,int size);
 	
-	public List<Book> findByNameContaining(String name);
+	public BooksPaginationDto findByNameContaining(String name,int page,int size);
 }

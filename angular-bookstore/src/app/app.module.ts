@@ -3,6 +3,8 @@ import { Component, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { JwPaginationModule } from 'jw-angular-pagination';
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 import { AppComponent } from './app.component';
 import { BookListComponent } from './components/book-list/book-list.component';
@@ -33,6 +35,8 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     JwPaginationModule,
+    NgbPaginationModule,
+    NgbAlertModule,
     RouterModule.forRoot(routes)
   ],
   providers: [
